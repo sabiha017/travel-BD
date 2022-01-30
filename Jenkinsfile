@@ -14,6 +14,13 @@ pipeline{
 				git 'https://github.com/sabiha017/travel-BD.git'
 			}
 		}
+        stage('Test') {
+
+			steps {
+			    
+				sh 'npm test'
+			}
+		}
 
 		stage('Build') {
 
