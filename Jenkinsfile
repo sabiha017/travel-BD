@@ -23,13 +23,14 @@ pipeline{
 		stage('Deploy') {
             steps {
 			    script {
-                     def imageExists = sh(script: "docker images -q travel-bd-app", returnStdout: true) == 0
+			        def containerExists = sh(script: "docker ps -a | grep travel-bd-app", returnStdout: true) == 0
 
-                        if(imageExists){
+                        if(!containerExists){
                            sh 'docker stop travel-bd-app'
 			               sh 'docker rm travel-bd-app' 
                          }
                         }
+        
 			    sh 'docker run -it -d -p 80:80  --name travel-bd-app fatemasabiha/travel-bd-react-app'
 			}
 		}
