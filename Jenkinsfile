@@ -8,31 +8,20 @@ pipeline{
 
 	stages {
 	    
-	    stage('gitclone') {
-
-			steps {
-				git 'https://github.com/sabiha017/travel-BD.git'
-			}
-		}
         stage('Test') {
-
-			steps {
-			    
-				sh 'npm test'
+            steps {
+			    sh 'npm test'
 			}
 		}
 
 		stage('Build') {
-
-			steps {
-			    
-				sh 'docker build -t fatemasabiha/travel-bd-react-app:latest .'
+            steps {
+			    sh 'docker build -t fatemasabiha/travel-bd-react-app:latest .'
 			}
 		}
 
 		stage('Deploy') {
-
-			steps {
+            steps {
 			    script {
                      def imageExists = sh(script: "docker images -q travel-bd-app", returnStdout: true) == 0
 
@@ -41,7 +30,6 @@ pipeline{
 			               sh 'docker rm travel-bd-app' 
                          }
                         }
-			    
 			    sh 'docker run -it -d -p 80:80  --name travel-bd-app fatemasabiha/travel-bd-react-app'
 			}
 		}
