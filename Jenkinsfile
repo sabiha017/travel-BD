@@ -33,8 +33,15 @@ pipeline{
 		stage('Deploy') {
 
 			steps {
-			    sh 'docker stop travel-bd-app'
-			    sh 'docker rm travel-bd-app'
+			    script {
+                     def imageExists = sh(script: "docker images -q travel-bd-app", returnStdout: true) == 0
+
+                        if(imageExists){
+                           sh 'docker stop travel-bd-app'
+			               sh 'docker rm travel-bd-app' 
+                         }
+                        }
+			    
 			    sh 'docker run -it -d -p 80:80  --name travel-bd-app fatemasabiha/travel-bd-react-app'
 			}
 		}
