@@ -7,7 +7,7 @@ function About() {
       <>
   <h1>ABOUT BANGLADESH</h1>;
   <Link to={{ pathname: "https://en.wikipedia.org/wiki/Bangladesh" }}target='_blank'><h1>Learn more here about Bangladesh</h1></Link>
-  <Footer/>
+  
   </>
   )}
 
